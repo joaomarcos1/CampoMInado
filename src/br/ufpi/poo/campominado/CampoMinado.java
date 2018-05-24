@@ -18,7 +18,4 @@ public class CampoMinado {
 		this.tabuleiro = umTabuleiro;
 	}
 
-		return this.tabulueiro;
-	}
-
 }
