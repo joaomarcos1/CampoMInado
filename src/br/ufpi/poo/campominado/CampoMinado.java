@@ -6,7 +6,7 @@ public class CampoMinado {
 
 	private Tabuleiro tabuleiro;
 
-	public void inicia() {
+	public void reseta() {
 		this.tabuleiro = new Tabuleiro();
 	}
 

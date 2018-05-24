@@ -1,4 +1,5 @@
 package br.ufpi.poo.campominado.tests;
+
 import static org.junit.Assert.*;
 
 import org.junit.Test;
@@ -13,7 +14,7 @@ public class TabuleiroTests {
 	public void testTabuleiroTemDimensoes() {
 		// Dado...
 		CampoMinado cm = new CampoMinado();
-		cm.inicia();
+		cm.reseta();
 		Tabuleiro t = cm.getTabuleiro();
 
 		// Quando...
@@ -26,7 +27,7 @@ public class TabuleiroTests {
 	@Test
 	public void testTabuleiroLimpo() {
 		CampoMinado cm = new CampoMinado();
-		cm.inicia();
+		cm.reseta();
 		Tabuleiro t = cm.getTabuleiro();
 
 		EstadoZona estado;
@@ -36,14 +37,6 @@ public class TabuleiroTests {
 				assertEquals(EstadoZona.VAZIO, estado);
 			}
 		}
-	}
-
-	@Test
-	public void test3() {
-	}
-
-	@Test
-	public void test4() {
 	}
 
 }
