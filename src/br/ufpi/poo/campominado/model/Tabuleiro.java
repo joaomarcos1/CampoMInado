@@ -52,6 +52,13 @@ public class Tabuleiro {
 		return getComprimento() >= 5 && getLargura() >= 5;
 	}
 
+	/**
+	 * Usar o método {@link #getEstado(Coordenada)} ao invés desse.
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	@Deprecated
 	public EstadoZona estadoPosicao(int x, int y) {
 		Set<Entry<Coordenada, Zona>> pares = this.mapa.entrySet();
 		for (Entry<Coordenada, Zona> entrada : pares) {
@@ -61,7 +68,12 @@ public class Tabuleiro {
 				return z.getEstadoZona();
 			}
 		}
+		
 		return null;
+	}
+
+	public EstadoZona getEstado(Coordenada umaCoordenada) {
+		return mapa.get(umaCoordenada).getEstadoZona();
 	}
 
 }

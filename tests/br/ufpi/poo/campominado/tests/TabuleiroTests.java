@@ -1,11 +1,13 @@
 package br.ufpi.poo.campominado.tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import br.ufpi.poo.campominado.CampoMinado;
 import br.ufpi.poo.campominado.enums.EstadoZona;
+import br.ufpi.poo.campominado.model.CampoMinado;
+import br.ufpi.poo.campominado.model.Coordenada;
 import br.ufpi.poo.campominado.model.Tabuleiro;
 
 public class TabuleiroTests {
@@ -33,7 +35,7 @@ public class TabuleiroTests {
 		EstadoZona estado;
 		for (int x = 0; x < t.getComprimento(); x++) {
 			for (int y = 0; y < t.getLargura(); y++) {
-				estado = t.estadoPosicao(x, y);
+				estado = t.getEstado(new Coordenada(x,y));
 				assertEquals(EstadoZona.VAZIO, estado);
 			}
 		}
