@@ -6,8 +6,9 @@ import java.util.List;
 
 import org.junit.Test;
 
-import br.ufpi.poo.campominado.CampoMinado;
 import br.ufpi.poo.campominado.enums.Acao;
+import br.ufpi.poo.campominado.exceptions.BombaExplodiuEssipitiu;
+import br.ufpi.poo.campominado.model.CampoMinado;
 import br.ufpi.poo.campominado.model.Coordenada;
 import br.ufpi.poo.campominado.model.Jogada;
 
@@ -42,7 +43,7 @@ public class JogadasTest {
 	}
 
 	@Test
-	public void testJogadaArmazenada() {
+	public void testJogadaArmazenada() throws BombaExplodiuEssipitiu {
 		CampoMinado cm = new CampoMinado();
 		cm.reseta();
 

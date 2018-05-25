@@ -17,7 +17,7 @@ public class Jogada {
 		setAcao(umaAcao);
 	}
 
-	private Coordenada getCoordenada() {
+	public Coordenada getCoordenada() {
 		return this.coordenada;
 	}
 
@@ -25,7 +25,7 @@ public class Jogada {
 		this.coordenada = umaCoordenada;
 	}
 
-	private Acao getAcao() {
+	public Acao getAcao() {
 		return this.acao;
 	}
 
