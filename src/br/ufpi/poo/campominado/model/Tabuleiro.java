@@ -6,7 +6,10 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import br.ufpi.poo.campominado.enums.EstadoZona;
-
+/**
+ * @author alcemirsantos
+ *
+ */
 public class Tabuleiro {
 
 	int comprimento;

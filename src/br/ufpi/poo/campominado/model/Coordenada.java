@@ -1,7 +1,10 @@
 package br.ufpi.poo.campominado.model;
 
 import java.util.Objects;
-
+/**
+ * @author alcemirsantos
+ *
+ */
 public class Coordenada {
 
 	private int x;

@@ -3,7 +3,10 @@ package br.ufpi.poo.campominado.model;
 import java.util.Objects;
 
 import br.ufpi.poo.campominado.enums.Acao;
-
+/**
+ * @author alcemirsantos
+ *
+ */
 public class Jogada {
 
 	private Coordenada coordenada;

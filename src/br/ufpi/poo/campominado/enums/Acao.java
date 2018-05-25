@@ -1,5 +1,9 @@
 package br.ufpi.poo.campominado.enums;
 
+/**
+ * @author alcemirsantos
+ *
+ */
 public enum Acao {
 	MARCAR("Marcar"), INVESTIGAR("Investigar");
 

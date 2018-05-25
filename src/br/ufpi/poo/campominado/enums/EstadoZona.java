@@ -1,5 +1,8 @@
 package br.ufpi.poo.campominado.enums;
-
+/**
+ * @author alcemirsantos
+ *
+ */
 public enum EstadoZona {
 
 	VAZIO, // sem marcacao
