@@ -3,8 +3,6 @@ package br.ufpi.poo.campominado.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.text.Position;
-
 import br.ufpi.poo.campominado.enums.Acao;
 import br.ufpi.poo.campominado.enums.EstadoZona;
 import br.ufpi.poo.campominado.exceptions.BombaExplodiuException;
@@ -81,24 +79,11 @@ public class CampoMinado {
 
 	}
 
-	public boolean possivelJogar() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
 	public boolean temVencedor() {
-		if(getNumZonasLivres()>getNumBombas())
+		if (this.tabuleiro.getQtdeZonasLivres() > this.tabuleiro
+				.getQtdeBombas())
 			return false;
 		return true;
 	}
 
-	private int getNumBombas() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	private int getNumZonasLivres() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 }
