@@ -7,7 +7,9 @@ import java.util.List;
 import org.junit.Test;
 
 import br.ufpi.poo.campominado.enums.Acao;
+import br.ufpi.poo.campominado.enums.EstadoZona;
 import br.ufpi.poo.campominado.exceptions.BombaExplodiuException;
+import br.ufpi.poo.campominado.exceptions.PosicaoInvalidaException;
 import br.ufpi.poo.campominado.model.CampoMinado;
 import br.ufpi.poo.campominado.model.Coordenada;
 import br.ufpi.poo.campominado.model.Jogada;
@@ -43,7 +45,8 @@ public class JogadasTest {
 	}
 
 	@Test
-	public void testJogadaArmazenada() throws BombaExplodiuException {
+	public void testJogadaArmazenada() throws BombaExplodiuException,
+			PosicaoInvalidaException {
 		CampoMinado cm = new CampoMinado();
 		cm.reseta();
 
@@ -55,5 +58,29 @@ public class JogadasTest {
 		assertTrue("deveria ser a jogada feita!", log.get(0).equals(nova));
 	}
 
+	@Test
+	public void testJogadaDeMarcacaoExecutada() throws BombaExplodiuException, PosicaoInvalidaException {
+		CampoMinado cm = new CampoMinado();
+		cm.reseta();
+		
+		Coordenada umaCoordenada = new Coordenada(0, 0);
+		Jogada nova = new Jogada(Acao.MARCAR, umaCoordenada);
+		cm.executa(nova);
+		EstadoZona atual = cm.getTabuleiro().getZona(umaCoordenada).getEstadoZona();
+		assertTrue("Deverira ter sido marcado.", atual.equals(EstadoZona.MARCADO));
+	}
 	
+	
+	@Test
+	public void testJogadaDeInvestigacaoExecutada() throws BombaExplodiuException, PosicaoInvalidaException {
+		CampoMinado cm = new CampoMinado();
+		cm.reseta();
+		
+		Coordenada umaCoordenada = new Coordenada(0, 0);
+		Jogada nova = new Jogada(Acao.INVESTIGAR, umaCoordenada);
+		cm.executa(nova);
+		EstadoZona atual = cm.getTabuleiro().getZona(umaCoordenada).getEstadoZona();
+		assertTrue("Deverira ter sido marcado.", atual.equals(EstadoZona.ABERTO));
+	}
+
 }
