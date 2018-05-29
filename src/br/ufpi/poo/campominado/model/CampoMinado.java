@@ -30,8 +30,24 @@ public class CampoMinado {
 		this.tabuleiro = umTabuleiro;
 	}
 
-	public void executa(Jogada umaJogada) throws BombaExplodiuException, PosicaoInvalidaException {
-		// TODO implementar a execução da jogada
+	public void executa(Jogada umaJogada) throws BombaExplodiuException,
+			PosicaoInvalidaException {
+		if (validar(umaJogada)) {
+			this.jogadas.add(umaJogada);
+			resolve(umaJogada);
+		}
+	}
+
+	private void resolve(Jogada umaJogada) throws BombaExplodiuException {
+		switch (umaJogada.getAcao()) {
+		case MARCAR:
+			this.tabuleiro.atualizaZona(umaJogada.getCoordenada(), EstadoZona.MARCADO);
+			break;
+		case INVESTIGAR:
+		default:
+			this.tabuleiro.atualizaZona(umaJogada.getCoordenada(), EstadoZona.ABERTO);
+			break;
+		}
 	}
 
 	public List<Jogada> getJogadas() {
@@ -50,7 +66,7 @@ public class CampoMinado {
 
 	private boolean eAcaoValida(Acao acao) {
 		// TODO investigar depois de marcar pode.
-		return false;
+		return true;
 	}
 
 	private boolean checarUsada(Coordenada umaCoordenada)
