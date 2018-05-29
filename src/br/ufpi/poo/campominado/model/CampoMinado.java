@@ -7,7 +7,7 @@ import javax.swing.text.Position;
 
 import br.ufpi.poo.campominado.enums.Acao;
 import br.ufpi.poo.campominado.enums.EstadoZona;
-import br.ufpi.poo.campominado.exceptions.BombaExplodiuEssipitiu;
+import br.ufpi.poo.campominado.exceptions.BombaExplodiuException;
 import br.ufpi.poo.campominado.exceptions.PosicaoInvalidaException;
 
 /**
@@ -32,8 +32,7 @@ public class CampoMinado {
 		this.tabuleiro = umTabuleiro;
 	}
 
-	public void executa(Jogada umaJogada) throws BombaExplodiuEssipitiu {
-		jogadas.add(umaJogada);
+	public void executa(Jogada umaJogada) throws BombaExplodiuException, PosicaoInvalidaException {
 		// TODO implementar a execução da jogada
 	}
 

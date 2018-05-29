@@ -3,7 +3,7 @@ package br.ufpi.poo.campominado;
 import java.util.Scanner;
 
 import br.ufpi.poo.campominado.enums.Acao;
-import br.ufpi.poo.campominado.exceptions.BombaExplodiuEssipitiu;
+import br.ufpi.poo.campominado.exceptions.BombaExplodiuException;
 import br.ufpi.poo.campominado.model.CampoMinado;
 import br.ufpi.poo.campominado.model.Coordenada;
 import br.ufpi.poo.campominado.model.Jogada;
@@ -21,7 +21,7 @@ public class Main {
 			umaJogada = coletaJogada();
 			try {
 				campo.executa(umaJogada);
-			} catch (BombaExplodiuEssipitiu b) {
+			} catch (BombaExplodiuException b) {
 				System.out.println(b + "Você perdeu!\n\n"
 						+ campo.getTabuleiro());
 				return;
