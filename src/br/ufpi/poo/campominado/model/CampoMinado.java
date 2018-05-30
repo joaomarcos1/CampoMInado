@@ -41,11 +41,13 @@ public class CampoMinado {
 	private void resolve(Jogada umaJogada) throws BombaExplodiuException {
 		switch (umaJogada.getAcao()) {
 		case MARCAR:
-			this.tabuleiro.atualizaZona(umaJogada.getCoordenada(), EstadoZona.MARCADO);
+			this.tabuleiro.atualizaZona(umaJogada.getCoordenada(),
+					EstadoZona.MARCADO);
 			break;
 		case INVESTIGAR:
 		default:
-			this.tabuleiro.atualizaZona(umaJogada.getCoordenada(), EstadoZona.ABERTO);
+			this.tabuleiro.atualizaZona(umaJogada.getCoordenada(),
+					EstadoZona.ABERTO);
 			break;
 		}
 	}
@@ -95,11 +97,18 @@ public class CampoMinado {
 
 	}
 
+	/**
+	 * Sim, sob duas condições:
+	 * - qtde de bombas = marcações de bombas;
+	 * - não tem posições vazias.
+	 * 
+	 * @return
+	 */
 	public boolean temVencedor() {
-		if (this.tabuleiro.getQtdeZonasLivres() > this.tabuleiro
-				.getQtdeBombas())
-			return false;
-		return true;
+		if (this.tabuleiro.getQtdeZonas(EstadoZona.MARCADO) == this.tabuleiro
+				.getQtdeBombas() && this.tabuleiro.getQtdeZonasLivres() == 0)
+			return true;
+		return false;
 	}
 
 }
