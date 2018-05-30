@@ -8,6 +8,7 @@ import br.ufpi.poo.campominado.exceptions.PosicaoInvalidaException;
 import br.ufpi.poo.campominado.model.CampoMinado;
 import br.ufpi.poo.campominado.model.Coordenada;
 import br.ufpi.poo.campominado.model.Jogada;
+import br.ufpi.poo.campominado.model.Tabuleiro;
 
 public class Main {
 
@@ -17,10 +18,14 @@ public class Main {
 		sc = new Scanner(System.in);
 
 		while (true) {
-
 			CampoMinado campo = new CampoMinado();
 			campo.reseta();
 
+			System.out.println("========================");
+			System.out.println("::: Campo Minado POO :::");
+			System.out.println("========================\n");
+			
+			boolean bombaExplodiu = false;
 			while (!campo.temVencedor()) {
 				System.out.println(campo.getTabuleiro());
 
@@ -28,40 +33,50 @@ public class Main {
 				umaJogada = coletaJogada();
 				try {
 					campo.executa(umaJogada);
-				} catch (BombaExplodiuException b) {
-					System.out.println("Você perdeu!" + b);
-					System.out.println(campo.getTabuleiro());
-					return;
 				} catch (PosicaoInvalidaException e) {
-					System.err
-							.println("ERROR: Jogada em posição inválida. Tente novamente!");
+					System.err.println("ERROR: Jogada em posição inválida.");
+					System.out.println("Tente novamente!");
+				} catch (BombaExplodiuException b) {
+					System.out.println(b);
+					encerraPartida(Resultado.PERDEU, campo.getTabuleiro());
+					bombaExplodiu = true;
+					break;
 				}
 			}
+			if(!bombaExplodiu)
+				encerraPartida(Resultado.GANHOU, campo.getTabuleiro());
 
-			System.out.println("Você ganhou!\n\n" + campo.getTabuleiro());
-			if (!jogarNovamente()) {
-				sc.close();
-				return;
-			}
 		}
 	}
 
-	private static boolean jogarNovamente() {
-		System.out.println("Deseja jogar novamente?(s/n) ");
-		String str = sc.next();
-		if (str.toLowerCase().equals("s"))
-			return true;
-
-		return false;
+	private static void encerraPartida(Resultado r, Tabuleiro t) {
+		System.out.println("=======================");
+		switch (r) {
+		case GANHOU:
+			System.out.println("Você ganhou!");
+			break;
+		case PERDEU:
+			System.out.println("Você perdeu!");
+			break;
+		}
+		t.finaliza();
+		System.out.println(t);
+		System.out.println("=======================\n");
+		System.out.print("Deseja jogar novamente?(s/n) ");
+		String str = sc.nextLine();
+		if (!str.toLowerCase().equals("s")) {
+			sc.close();
+			System.exit(0);
+		}
 	}
 
 	private static Jogada coletaJogada() {
-		System.out.println("\n::: Nova Jogada :::");
+		System.out.println("::: Nova Jogada :::");
 		int opcao = 0;
 		while (opcao == 0) {
 			try {
 				System.out
-						.println("::Escolha a ação (1= Investigar; 2=Marcar Bomba):");
+						.print("::Escolha a ação (1= Investigar; 2=Marcar Bomba):");
 				opcao = Integer.parseInt(sc.nextLine());
 			} catch (NumberFormatException e) {
 				System.err.println("Opção inválida!" + e);
@@ -80,7 +95,7 @@ public class Main {
 
 		int linha = 99, coluna = 99;
 		while (linha == 99 || coluna == 99) {
-			System.out.print("\n::Digite a posição assim: linha,coluna:");
+			System.out.print("::Digite a posição assim: linha,coluna:");
 			try {
 				String[] entrada = sc.nextLine().split(",");
 				linha = Integer.parseInt(entrada[0]);
@@ -93,5 +108,9 @@ public class Main {
 		}
 
 		return new Jogada(acao, new Coordenada(linha, coluna));
+	}
+
+	enum Resultado {
+		PERDEU, GANHOU;
 	}
 }
