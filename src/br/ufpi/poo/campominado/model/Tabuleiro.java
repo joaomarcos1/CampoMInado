@@ -3,6 +3,7 @@ package br.ufpi.poo.campominado.model;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Random;
@@ -148,20 +149,116 @@ public class Tabuleiro {
 		return getQtdeZonas(EstadoZona.VAZIO);
 	}
 
-	public void atualizaZona(Coordenada umaCoordenada, EstadoZona novoEstado) throws BombaExplodiuException {
+	public void atualizaZona(Coordenada umaCoordenada, EstadoZona novoEstado)
+			throws BombaExplodiuException {
+		this.mapa.get(umaCoordenada).setEstadoZona(novoEstado);
 		if (novoEstado == EstadoZona.ABERTO) {
-			if(this.mapa.get(umaCoordenada).temBomba()){
-				throw new BombaExplodiuException("Oh não! Aqui havia uma bomba!");
-			}else{
-				this.mapa.get(umaCoordenada).setValor(contaBombasAoRedor(umaCoordenada));
+			if (this.mapa.get(umaCoordenada).temBomba()) {
+				throw new BombaExplodiuException(
+						"Oh não! Aqui havia uma bomba!");
+			} else {
+				atualizaTabuleiro(umaCoordenada, novoEstado);
 			}
 		}
-		this.mapa.get(umaCoordenada).setEstadoZona(novoEstado);
 	}
 
-	private int contaBombasAoRedor(Coordenada umaCoordenada) {
-		// TODO Auto-generated method stub
-		return 0;
+	private void atualizaTabuleiro(Coordenada c, EstadoZona e) {
+		List<Coordenada> vizinhos = getVizinhos(c);
+		int qtdeBombasAoRedor = contaBombas(vizinhos);
+		this.mapa.get(c).setEstadoZona(e);
+		this.mapa.get(c).setValor(qtdeBombasAoRedor);
+		if (qtdeBombasAoRedor == 0) {
+			for (Coordenada v : vizinhos)
+				if(this.mapa.get(v).getEstadoZona() == EstadoZona.VAZIO)
+					atualizaTabuleiro(v, e);
+		}
+	}
+
+	private int contaBombas(List<Coordenada> vizinhos) {
+		int count = 0;
+		for (Coordenada v : vizinhos) {
+			if (this.bombas.contains(v))
+				count++;
+		}
+		return count;
+	}
+
+	private List<Coordenada> getVizinhos(Coordenada c) {
+		List<Coordenada> vizinhos = new ArrayList<Coordenada>();
+		int x = c.getX();
+		int y = c.getY();
+		if (x == 0) {
+			if (y == 0) { // CSE
+				vizinhos.add(new Coordenada(x, y + 1));
+				vizinhos.add(new Coordenada(x + 1, y + 1));
+				vizinhos.add(new Coordenada(x + 1, y));
+			} else if (y == colunas - 1) { // CSD
+				vizinhos.add(new Coordenada(x, y - 1));
+				vizinhos.add(new Coordenada(x + 1, y - 1));
+				vizinhos.add(new Coordenada(x + 1, y));
+			} else { // BS
+				vizinhos.add(new Coordenada(x, y - 1));
+				vizinhos.add(new Coordenada(x + 1, y - 1));
+				vizinhos.add(new Coordenada(x + 1, y));
+				vizinhos.add(new Coordenada(x + 1, y + 1));
+				vizinhos.add(new Coordenada(x, y + 1));
+			}
+		} else if (x == linhas - 1) {
+			if (y == 0) { // CIE
+				vizinhos.add(new Coordenada(x - 1, y));
+				vizinhos.add(new Coordenada(x - 1, y + 1));
+				vizinhos.add(new Coordenada(x, y + 1));
+			} else if (y == colunas - 1) { // CID
+				vizinhos.add(new Coordenada(x - 1, y));
+				vizinhos.add(new Coordenada(x - 1, y - 1));
+				vizinhos.add(new Coordenada(x, y - 1));
+			} else { // BI
+				vizinhos.add(new Coordenada(x, y - 1));
+				vizinhos.add(new Coordenada(x - 1, y - 1));
+				vizinhos.add(new Coordenada(x - 1, y));
+				vizinhos.add(new Coordenada(x - 1, y + 1));
+				vizinhos.add(new Coordenada(x, y + 1));
+			}
+		} else {
+			if (y == 0) { // BE
+				vizinhos.add(new Coordenada(x - 1, y));
+				vizinhos.add(new Coordenada(x - 1, y + 1));
+				vizinhos.add(new Coordenada(x, y + 1));
+				vizinhos.add(new Coordenada(x + 1, y + 1));
+				vizinhos.add(new Coordenada(x + 1, y));
+			} else if (y == colunas - 1) { // BD
+				vizinhos.add(new Coordenada(x - 1, y));
+				vizinhos.add(new Coordenada(x - 1, y - 1));
+				vizinhos.add(new Coordenada(x, y - 1));
+				vizinhos.add(new Coordenada(x + 1, y - 1));
+				vizinhos.add(new Coordenada(x + 1, y));
+			} else { // C
+				vizinhos.add(new Coordenada(x - 1, y));
+				vizinhos.add(new Coordenada(x - 1, y + 1));
+				vizinhos.add(new Coordenada(x, y + 1));
+				vizinhos.add(new Coordenada(x + 1, y + 1));
+				vizinhos.add(new Coordenada(x + 1, y));
+				vizinhos.add(new Coordenada(x + 1, y - 1));
+				vizinhos.add(new Coordenada(x, y - 1));
+				vizinhos.add(new Coordenada(x - 1, y - 1));
+			}
+		}
+
+		return vizinhos;
+	}
+
+	public void finaliza() {
+		for(Entry<Coordenada, Zona> e: this.mapa.entrySet()){
+			Zona z = e.getValue();
+			Coordenada c = e.getKey();
+			if(z.getEstadoZona()==EstadoZona.ABERTO || z.getEstadoZona()==EstadoZona.MARCADO)
+				continue;
+			else if (z.temBomba()) 
+				z.setEstadoZona(EstadoZona.MARCADO);
+			else 
+				atualizaTabuleiro(c, EstadoZona.ABERTO);
+		}
+		
 	}
 
 }
