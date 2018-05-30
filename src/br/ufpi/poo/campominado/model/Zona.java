@@ -35,7 +35,7 @@ public class Zona {
 			return "[B]";
 		case VAZIO:
 		default:
-			return "[#]";
+			return "[?]";
 		}
 	}
 
