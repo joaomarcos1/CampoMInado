@@ -16,23 +16,22 @@ import br.ufpi.poo.campominado.exceptions.BombaExplodiuException;
  */
 public class Tabuleiro {
 
-	int comprimento;
-	int largura;
+	int linhas;
+	int colunas;
 	private Map<Coordenada, Zona> mapa;
 	private Collection<Coordenada> bombas;
 
 	public Tabuleiro() {
-		this.comprimento = 5;
-		this.largura = 5;
+		this.linhas = 4;
+		this.colunas = 4;
 		this.mapa = new HashMap<Coordenada, Zona>(getNumZonas());
 		this.bombas = new ArrayList<Coordenada>();
 		inicia();
 	}
 
 	private void inicia() {
-		int qtdeBombas = 0;
-		for (int x = 0; x < this.comprimento; x++) {
-			for (int y = 0; y < this.largura; y++) {
+		for (int x = 0; x < this.linhas; x++) {
+			for (int y = 0; y < this.colunas; y++) {
 				Zona zona = new Zona();
 				if(Math.random()>0.3 && qtdeBombas < (int) Math.round(getNumZonas() * 0.3)){
 					zona.setBomba(true);
@@ -45,19 +44,19 @@ public class Tabuleiro {
 	}
 
 	public int getComprimento() {
-		return comprimento;
+		return linhas;
 	}
 
 	public void setComprimento(int comprimento) {
-		this.comprimento = comprimento;
+		this.linhas = comprimento;
 	}
 
 	public int getLargura() {
-		return largura;
+		return colunas;
 	}
 
 	public void setLargura(int largura) {
-		this.largura = largura;
+		this.colunas = largura;
 	}
 
 	public boolean estaPronto() {
@@ -90,7 +89,7 @@ public class Tabuleiro {
 	}
 
 	public int getNumZonas() {
-		return this.comprimento * this.largura;
+		return this.linhas * this.colunas;
 	}
 
 	public int getQtdeZonas(EstadoZona vazio) {
@@ -106,13 +105,13 @@ public class Tabuleiro {
 		StringBuilder sb = new StringBuilder();
 
 		String indicesColuna = "  ";
-		for (int y = 0; y < this.largura; y++) {
+		for (int y = 0; y < this.colunas; y++) {
 			indicesColuna += " " + y + " ";
 		}
 		sb.append(indicesColuna + "\n");
-		for (int x = 0; x < this.comprimento; x++) {
+		for (int x = 0; x < this.linhas; x++) {
 			String linha = x + " ";
-			for (int y = 0; y < this.largura; y++)
+			for (int y = 0; y < this.colunas; y++)
 				linha += getZona(x, y).valorToString();
 			sb.append(linha + "\n");
 		}
@@ -123,7 +122,7 @@ public class Tabuleiro {
 	public Zona getZona(int x, int y) {
 		return this.mapa.get(new Coordenada(x, y));
 	}
-	
+
 	public Zona getZona(Coordenada c) {
 		return this.mapa.get(c);
 	}
