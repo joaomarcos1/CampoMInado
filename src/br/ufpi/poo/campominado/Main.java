@@ -25,6 +25,7 @@ public class Main {
 			System.out.println("::: Campo Minado POO :::");
 			System.out.println("========================\n");
 			
+			System.out.println("CUIDADO! Existem "+campo.getTabuleiro().getQtdeBombas()+ " bombas.");
 			boolean bombaExplodiu = false;
 			while (!campo.temVencedor()) {
 				System.out.println(campo.getTabuleiro());
