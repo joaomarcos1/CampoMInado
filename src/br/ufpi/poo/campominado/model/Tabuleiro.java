@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Random;
 import java.util.Set;
 
 import br.ufpi.poo.campominado.enums.EstadoZona;
@@ -33,13 +34,25 @@ public class Tabuleiro {
 		for (int x = 0; x < this.linhas; x++) {
 			for (int y = 0; y < this.colunas; y++) {
 				Zona zona = new Zona();
-				if(Math.random()>0.3 && qtdeBombas < (int) Math.round(getNumZonas() * 0.3)){
-					zona.setBomba(true);
-					zona.setValor(Integer.MAX_VALUE);
-					qtdeBombas++;
-				}
 				this.mapa.put(new Coordenada(x, y), zona);
 			}
+		}
+		marcaBombas();
+	}
+
+	private void marcaBombas() {
+		int qtdeBombas = 0;
+		while (qtdeBombas < (int) Math.round(0.2 * getQtdeZonasLivres())) {
+			Random r = new Random();
+			int x = r.nextInt(linhas);
+			int y = r.nextInt(colunas);
+			Coordenada possivelNovaBomba = new Coordenada(x, y);
+			if (this.bombas.contains(possivelNovaBomba))
+				continue;
+			this.mapa.get(possivelNovaBomba).setBomba(true);
+			this.mapa.get(possivelNovaBomba).setValor(Integer.MAX_VALUE);
+			this.bombas.add(new Coordenada(x, y));
+			qtdeBombas++;
 		}
 	}
 
