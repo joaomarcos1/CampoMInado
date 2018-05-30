@@ -27,6 +27,7 @@ public class Main {
 			
 			System.out.println("CUIDADO! Existem "+campo.getTabuleiro().getQtdeBombas()+ " bombas.");
 			boolean bombaExplodiu = false;
+			long tempoInicial = System.currentTimeMillis();
 			while (!campo.temVencedor()) {
 				System.out.println(campo.getTabuleiro());
 
@@ -38,19 +39,22 @@ public class Main {
 					System.err.println("ERROR: Jogada em posição inválida.");
 					System.out.println("Tente novamente!");
 				} catch (BombaExplodiuException b) {
+					long tempoFinal = System.currentTimeMillis();
 					System.out.println(b);
-					encerraPartida(Resultado.PERDEU, campo.getTabuleiro());
+					encerraPartida(Resultado.PERDEU, campo.getTabuleiro(), tempoFinal-tempoInicial);
 					bombaExplodiu = true;
 					break;
 				}
 			}
-			if(!bombaExplodiu)
-				encerraPartida(Resultado.GANHOU, campo.getTabuleiro());
-
+			if(!bombaExplodiu){
+				long tempoFinal = System.currentTimeMillis();
+				System.out.println();
+				encerraPartida(Resultado.GANHOU, campo.getTabuleiro(), tempoFinal-tempoInicial);
+			}
 		}
 	}
 
-	private static void encerraPartida(Resultado r, Tabuleiro t) {
+	private static void encerraPartida(Resultado r, Tabuleiro t, long tempoEmMilisegundos) {
 		System.out.println("=======================");
 		switch (r) {
 		case GANHOU:
@@ -62,10 +66,17 @@ public class Main {
 		}
 		t.finaliza();
 		System.out.println(t);
+		long second = (tempoEmMilisegundos / 1000) % 60;
+		long minute = (tempoEmMilisegundos / (1000 * 60)) % 60;
+//		long hour = (tempoEmMilisegundos / (1000 * 60 * 60)) % 24;
+		String tempoFormatado = String.format("%02dminutos e %02dsegundos", minute, second);
+		System.out.println("Tempo de Jogo: "+tempoFormatado);
+		
 		System.out.println("=======================\n");
 		System.out.print("Deseja jogar novamente?(s/n) ");
 		String str = sc.nextLine();
 		if (!str.toLowerCase().equals("s")) {
+			System.out.println("Fim de Jogo!");
 			sc.close();
 			System.exit(0);
 		}
