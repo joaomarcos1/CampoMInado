@@ -3,6 +3,7 @@ package br.ufpi.poo.campominado;
 import java.util.Scanner;
 
 import br.ufpi.poo.campominado.enums.Acao;
+import br.ufpi.poo.campominado.exceptions.AcaoInvalidaException;
 import br.ufpi.poo.campominado.exceptions.BombaExplodiuException;
 import br.ufpi.poo.campominado.exceptions.PosicaoInvalidaException;
 import br.ufpi.poo.campominado.model.CampoMinado;
@@ -36,11 +37,14 @@ public class Main {
 				try {
 					campo.executa(umaJogada);
 				} catch (PosicaoInvalidaException e) {
-					System.err.println("ERROR: Jogada em posição inválida.");
+					System.err.println("ERRO Tipo 1: Jogada em posição inválida.");
+					System.out.println("Tente novamente!");
+				} catch (AcaoInvalidaException a) {
+					System.err.println("ERRO Tipo 2: "+a.getMessage());
 					System.out.println("Tente novamente!");
 				} catch (BombaExplodiuException b) {
 					long tempoFinal = System.currentTimeMillis();
-					System.out.println(b);
+					System.out.println(b.getMessage());
 					encerraPartida(Resultado.PERDEU, campo.getTabuleiro(), tempoFinal-tempoInicial);
 					bombaExplodiu = true;
 					break;

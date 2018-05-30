@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import br.ufpi.poo.campominado.enums.Acao;
+import br.ufpi.poo.campominado.exceptions.AcaoInvalidaException;
 import br.ufpi.poo.campominado.exceptions.PosicaoInvalidaException;
 import br.ufpi.poo.campominado.model.CampoMinado;
 import br.ufpi.poo.campominado.model.Coordenada;
@@ -18,7 +19,7 @@ import br.ufpi.poo.campominado.model.Jogada;
 public class CampoMinadoTest {
 
 	@Test
-	public void testJogadaValida() throws PosicaoInvalidaException{
+	public void testJogadaValida() throws PosicaoInvalidaException, AcaoInvalidaException{
 		CampoMinado cm = new CampoMinado();
 		cm.reseta();
 		

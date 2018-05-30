@@ -5,6 +5,7 @@ import java.util.List;
 
 import br.ufpi.poo.campominado.enums.Acao;
 import br.ufpi.poo.campominado.enums.EstadoZona;
+import br.ufpi.poo.campominado.exceptions.AcaoInvalidaException;
 import br.ufpi.poo.campominado.exceptions.BombaExplodiuException;
 import br.ufpi.poo.campominado.exceptions.PosicaoInvalidaException;
 
@@ -31,7 +32,7 @@ public class CampoMinado {
 	}
 
 	public void executa(Jogada umaJogada) throws BombaExplodiuException,
-			PosicaoInvalidaException {
+			PosicaoInvalidaException, AcaoInvalidaException {
 		if (validar(umaJogada)) {
 			this.jogadas.add(umaJogada);
 			resolve(umaJogada);
@@ -56,9 +57,9 @@ public class CampoMinado {
 		return this.jogadas;
 	}
 
-	public boolean validar(Jogada nova) throws PosicaoInvalidaException {
+	public boolean validar(Jogada nova) throws PosicaoInvalidaException, AcaoInvalidaException {
 		return eCoordenadaValida(nova.getCoordenada())
-				&& eAcaoValida(nova.getAcao());
+				&& eAcaoValida(nova);
 	}
 
 	private boolean eCoordenadaValida(Coordenada umaCoordenada)
@@ -66,9 +67,18 @@ public class CampoMinado {
 		return checarUsada(umaCoordenada) && checarLimites(umaCoordenada);
 	}
 
-	private boolean eAcaoValida(Acao acao) {
-		// TODO investigar depois de marcar pode.
-		return true;
+	private boolean eAcaoValida(Jogada j) throws AcaoInvalidaException {
+		EstadoZona atual = this.tabuleiro.getEstado(j.getCoordenada());
+		switch (atual) {
+		case ABERTO:
+			throw new AcaoInvalidaException("Você já INVESTIGOU essa zona.");
+		case MARCADO:
+			if(j.getAcao() == Acao.MARCAR)
+				throw new AcaoInvalidaException("Você já MARCOU essa zona, mas pode INVESTIGAR caso se arrependeu.");
+		case VAZIO:
+		default:
+			return true;
+		}
 	}
 
 	private boolean checarUsada(Coordenada umaCoordenada)

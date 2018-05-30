@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import br.ufpi.poo.campominado.enums.Acao;
 import br.ufpi.poo.campominado.enums.EstadoZona;
+import br.ufpi.poo.campominado.exceptions.AcaoInvalidaException;
 import br.ufpi.poo.campominado.exceptions.BombaExplodiuException;
 import br.ufpi.poo.campominado.exceptions.PosicaoInvalidaException;
 import br.ufpi.poo.campominado.model.CampoMinado;
@@ -46,7 +47,7 @@ public class JogadasTest {
 
 	@Test
 	public void testJogadaArmazenada() throws BombaExplodiuException,
-			PosicaoInvalidaException {
+			PosicaoInvalidaException, AcaoInvalidaException {
 		CampoMinado cm = new CampoMinado();
 		cm.reseta();
 
@@ -59,7 +60,7 @@ public class JogadasTest {
 	}
 
 	@Test
-	public void testJogadaDeMarcacaoExecutada() throws BombaExplodiuException, PosicaoInvalidaException {
+	public void testJogadaDeMarcacaoExecutada() throws BombaExplodiuException, PosicaoInvalidaException, AcaoInvalidaException {
 		CampoMinado cm = new CampoMinado();
 		cm.reseta();
 		
@@ -72,7 +73,7 @@ public class JogadasTest {
 	
 	
 	@Test
-	public void testJogadaDeInvestigacaoExecutada() throws BombaExplodiuException, PosicaoInvalidaException {
+	public void testJogadaDeInvestigacaoExecutada() throws BombaExplodiuException, PosicaoInvalidaException, AcaoInvalidaException {
 		CampoMinado cm = new CampoMinado();
 		cm.reseta();
 		
