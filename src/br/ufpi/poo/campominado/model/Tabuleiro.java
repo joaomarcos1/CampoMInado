@@ -73,9 +73,6 @@ public class Tabuleiro {
 		this.colunas = largura;
 	}
 
-	public boolean estaPronto() {
-		return getComprimento() >= 5 && getLargura() >= 5;
-	}
 
 	/**
 	 * Usar o método {@link #getEstado(Coordenada)} ao invés desse.

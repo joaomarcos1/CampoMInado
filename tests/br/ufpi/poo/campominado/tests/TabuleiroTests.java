@@ -12,19 +12,6 @@ import br.ufpi.poo.campominado.model.Tabuleiro;
 
 public class TabuleiroTests {
 
-	@Test
-	public void testTabuleiroTemDimensoes() {
-		// Dado...
-		CampoMinado cm = new CampoMinado();
-		cm.reseta();
-		Tabuleiro t = cm.getTabuleiro();
-
-		// Quando...
-		boolean estado = t.estaPronto();
-
-		// Então...
-		assertTrue(estado);
-	}
 
 	@Test
 	public void testTabuleiroLimpo() {
