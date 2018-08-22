@@ -11,6 +11,7 @@ import java.util.Set;
 
 import br.ufpi.poo.campominado.enums.EstadoZona;
 import br.ufpi.poo.campominado.exceptions.BombaExplodiuException;
+import br.ufpi.poo.campominado.exceptions.PosicaoInvalidaException;
 
 /**
  * @author alcemirsantos
@@ -95,7 +96,20 @@ public class Tabuleiro {
 		return null;
 	}
 
-	public EstadoZona getEstado(Coordenada umaCoordenada) {
+	public EstadoZona getEstado(Coordenada umaCoordenada) throws PosicaoInvalidaException {
+		if((umaCoordenada.getX()>linhas && umaCoordenada.getY()>colunas)
+				||
+				(umaCoordenada.getX()<0 && umaCoordenada.getY()<0)
+				||
+				(umaCoordenada.getX()>linhas)
+				||
+				(umaCoordenada.getX()<0)
+				||
+				(umaCoordenada.getY()>colunas)
+				||
+				(umaCoordenada.getY()<0)
+				)
+			throw new PosicaoInvalidaException("Posicao fora dos limites.");
 		return mapa.get(umaCoordenada).getEstadoZona();
 	}
 

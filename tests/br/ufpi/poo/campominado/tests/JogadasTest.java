@@ -83,5 +83,60 @@ public class JogadasTest {
 		EstadoZona atual = cm.getTabuleiro().getZona(umaCoordenada).getEstadoZona();
 		assertTrue("Deverira ter sido marcado.", atual.equals(EstadoZona.ABERTO));
 	}
+	
+	
+	
+	@Test(expected = PosicaoInvalidaException.class)
+	public void testJogadaForaDos2Limites() throws PosicaoInvalidaException, AcaoInvalidaException{
+		// Dado que...
+		CampoMinado cm = new CampoMinado();
+		cm.reseta();
+		
+		// Quando...
+		Coordenada local = new Coordenada(10, 10);
+		Jogada nova = new Jogada(Acao.INVESTIGAR, local);
+		cm.validar(nova);
+		
+		// Então...
+	}
+	
+	@Test(expected = PosicaoInvalidaException.class)
+	public void testJogadaForaDoLimiteX() throws PosicaoInvalidaException, AcaoInvalidaException{
+		// Dado que...
+		CampoMinado cm = new CampoMinado();
+		cm.reseta();
+		
+		// Quando...
+		Coordenada local = new Coordenada(10, 0);
+		Jogada nova = new Jogada(Acao.INVESTIGAR, local);
+		cm.validar(nova);
+		
+		// Então...
+	}
 
+	@Test(expected = PosicaoInvalidaException.class)
+	public void testJogadaForaDoLimiteY() throws PosicaoInvalidaException, AcaoInvalidaException{
+		// Dado que...
+		CampoMinado cm = new CampoMinado();
+		cm.reseta();
+		
+		// Quando...
+		Coordenada local = new Coordenada(0, 10);
+		Jogada nova = new Jogada(Acao.INVESTIGAR, local);
+		cm.validar(nova);
+		
+		// Então...
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

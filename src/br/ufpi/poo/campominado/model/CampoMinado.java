@@ -67,7 +67,7 @@ public class CampoMinado {
 		return checarUsada(umaCoordenada) && checarLimites(umaCoordenada);
 	}
 
-	private boolean eAcaoValida(Jogada j) throws AcaoInvalidaException {
+	private boolean eAcaoValida(Jogada j) throws AcaoInvalidaException, PosicaoInvalidaException {
 		EstadoZona atual = this.tabuleiro.getEstado(j.getCoordenada());
 		switch (atual) {
 		case ABERTO:

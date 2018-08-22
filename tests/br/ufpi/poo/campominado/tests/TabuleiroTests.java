@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import br.ufpi.poo.campominado.enums.EstadoZona;
+import br.ufpi.poo.campominado.exceptions.PosicaoInvalidaException;
 import br.ufpi.poo.campominado.model.CampoMinado;
 import br.ufpi.poo.campominado.model.Coordenada;
 import br.ufpi.poo.campominado.model.Tabuleiro;
@@ -14,7 +15,7 @@ public class TabuleiroTests {
 
 
 	@Test
-	public void testTabuleiroLimpo() {
+	public void testTabuleiroLimpo() throws PosicaoInvalidaException {
 		CampoMinado cm = new CampoMinado();
 		cm.reseta();
 		Tabuleiro t = cm.getTabuleiro();
